@@ -15,6 +15,15 @@ function App() {
     setTodoList(previous => [newTodo, ...previous]);
 }
 
+function updateTodo(editedTodo) {
+  setTodoList(previous => previous.map(todo => {
+    if (todo.id === editedTodo.id) {
+      return editedTodo;
+    }
+    return todo;
+  }));
+}
+
 function completeTodo(id) {
   setTodoList(previous => previous.map(todo => {
     if (todo.id === id) {
@@ -28,7 +37,7 @@ return (
   <div>
     <h1>Todo List</h1>
     <TodoForm onAddTodo={addTodo} />
-    <TodoList todoList={todoList} onCompleteTodo={completeTodo} />
+    <TodoList onUpdateTodo={updateTodo} todoList={todoList} onCompleteTodo={completeTodo} />
   </div>
 );
 }
