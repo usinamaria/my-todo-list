@@ -19,10 +19,10 @@ import FilterInput from '../../shared/FilterInput.jsx';
  */
 function TodosPage({ token }) {
   const [filterError, setFilterError] = useState('');
+  const [dataVersion, setDataVersion] = useState(0);
   const invalidateCache = useCallback(() => {
     setDataVersion(prev => prev + 1);
   }, []);
-  const [dataVersion, setDataVersion] = useState(0);
   const handleFilterChange = (newTerm) => {
       setFilterTerm(newTerm);
     };
