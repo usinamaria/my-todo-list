@@ -23,17 +23,17 @@ export const TODO_ACTIONS = {
   SET_SORT: 'SET_SORT',
   SET_FILTER: 'SET_FILTER',
   CLEAR_ERROR: 'CLEAR_ERROR',
+  CLEAR_FILTER_ERROR: 'CLEAR_FILTER_ERROR',
   RESET_FILTERS: 'RESET_FILTERS',
-  INVALIDATE_CACHE: 'INVALIDATE_CACHE',
 };
 
 export const initialTodoState = {
   todoList: [],
   error: '',
   filterError: '',
-  isTodoListLoading: false,
-  sortBy: 'creationDate',
-  sortDirection: 'desc',
+  isTodoListLoading: true,
+  sortBy: 'createdDate',
+  sortDirection: 'asc',
   filterTerm: '',
   dataVersion: 0,
 };
@@ -165,30 +165,27 @@ export function todoReducer(state, action) {
       };
 
     case TODO_ACTIONS.CLEAR_ERROR:
-      const errorType = action.payload.type ?? 'general';
       return {
         ...state,
-        ...(errorType === 'filter'
-          ? { filterError: '' }
-          : { error: '' }),
+        error: '',
+      };
+
+    case TODO_ACTIONS.CLEAR_FILTER_ERROR:
+      return {
+        ...state,
+        filterError: '',
       };
 
     case TODO_ACTIONS.RESET_FILTERS:
       return {
         ...state,
         filterTerm: '',
-        sortBy: 'creationDate',
-        sortDirection: 'desc',
+        sortBy: 'createdDate',
+        sortDirection: 'asc',
         filterError: '',
       };
 
-    case TODO_ACTIONS.INVALIDATE_CACHE:
-      return {
-        ...state,
-        dataVersion: state.dataVersion + 1,
-      };
-
     default:
-      throw new Error(`Unknown action: ${action.type}`);
+      throw new Error(`Unknown action type: ${action.type}`);
   }
 }

@@ -76,8 +76,8 @@ function TodosPage() {
       } catch (error) {
         const isFilterError =
           debouncedFilterTerm ||
-          sortBy !== 'creationDate' ||
-          sortDirection !== 'desc';
+          sortBy !== 'createdDate' ||
+          sortDirection !== 'asc';
         dispatch({
           type: TODO_ACTIONS.FETCH_ERROR,
           payload: {
@@ -239,7 +239,6 @@ function TodosPage() {
             onClick={() =>
               dispatch({
                 type: TODO_ACTIONS.CLEAR_ERROR,
-                payload: { type: 'general' },
               })
             }
           >
@@ -253,8 +252,7 @@ function TodosPage() {
           <button
             onClick={() =>
               dispatch({
-                type: TODO_ACTIONS.CLEAR_ERROR,
-                payload: { type: 'filter' },
+                type: TODO_ACTIONS.CLEAR_FILTER_ERROR,
               })
             }
           >
