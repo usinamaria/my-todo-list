@@ -2,6 +2,7 @@
  * TodosPage Component
  * Container component that manages all todo-related state and functions.
  * Handles todo CRUD operations (Create, Read, Update, Delete/Complete).
+ * Uses useAuth hook to access authentication token from context.
  */
 import { useReducer, useEffect } from 'react';
 import useDebounce from '../../utils/useDebounce.js';
@@ -9,6 +10,7 @@ import TodoForm from './TodoForm.jsx';
 import TodoList from './TodoList/TodoList.jsx';
 import SortBy from '../../shared/SortBy.jsx';
 import FilterInput from '../../shared/FilterInput.jsx';
+import { useAuth } from '../../contexts/AuthContext.jsx';
 import {
   todoReducer,
   initialTodoState,
@@ -18,11 +20,10 @@ import {
 /**
  * TodosPage - Main feature page for todo management
  * @component
- * @param {Object} props - Component props
- * @param {string} props.token - CSRF token for authenticated requests
  * @returns {JSX.Element} Todo form and list components
  */
-function TodosPage({ token }) {
+function TodosPage() {
+  const { token } = useAuth();
   const [state, dispatch] = useReducer(todoReducer, initialTodoState);
   const {
     todoList,
@@ -39,7 +40,6 @@ function TodosPage({ token }) {
   const handleFilterChange = (newTerm) => {
     dispatch({ type: TODO_ACTIONS.SET_FILTER, payload: newTerm });
   };
-  
 
   useEffect(() => {
     async function fetchTodos() {
