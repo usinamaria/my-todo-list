@@ -5,14 +5,8 @@
  */
 import { createContext, useContext, useState } from 'react';
 
-// ========================================
-// Create the Context
-// ========================================
 const AuthContext = createContext();
 
-// ========================================
-// Custom useAuth Hook
-// ========================================
 /**
  * Custom hook to access authentication context.
  * Must be used within an AuthProvider.
@@ -27,9 +21,6 @@ export function useAuth() {
   return context;
 }
 
-// ========================================
-// AuthProvider Component
-// ========================================
 /**
  * AuthProvider - Wraps application and provides authentication context
  * @param {Object} props - Component props
@@ -40,9 +31,6 @@ export function AuthProvider({ children }) {
   const [email, setEmail] = useState('');
   const [token, setToken] = useState('');
 
-  // ========================================
-  // LOGIN
-  // ========================================
   const login = async (userEmail, password) => {
     try {
       const options = {
@@ -56,12 +44,10 @@ export function AuthProvider({ children }) {
       const data = await res.json();
 
       if (res.status === 200 && data.name && data.csrfToken) {
-        // Success: Update state
         setEmail(data.name);
         setToken(data.csrfToken);
         return { success: true };
       } else {
-        // Failure: Return error
         return {
           success: false,
           error: `Authentication failed: ${data?.message || 'Unknown error'}`,
@@ -75,12 +61,8 @@ export function AuthProvider({ children }) {
     }
   };
 
-  // ========================================
-  // LOGOUT
-  // ========================================
   const logout = async () => {
     try {
-      // Only make API call if we have a token
       if (token) {
         const options = {
           method: 'POST',
@@ -93,12 +75,10 @@ export function AuthProvider({ children }) {
         await fetch('/api/users/logoff', options);
       }
 
-      // Always clear local state, regardless of API success
       setEmail('');
       setToken('');
       return { success: true };
     } catch (error) {
-      // Clear state even if API call fails
       setEmail('');
       setToken('');
       return {
@@ -108,9 +88,6 @@ export function AuthProvider({ children }) {
     }
   };
 
-  // ========================================
-  // Context Value
-  // ========================================
   const value = {
     email,
     token,
