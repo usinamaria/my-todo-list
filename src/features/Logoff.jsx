@@ -3,7 +3,7 @@
  * Handles logging the user out and redirecting to the login page.
  */
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useAuth } from '../contexts/AuthContext.jsx';
 
 function Logoff() {

@@ -4,7 +4,7 @@
  * Serves as the entry point for the entire application.
  */
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router';
 import Header from './shared/Header.jsx';
 import HomePage from './pages/HomePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';

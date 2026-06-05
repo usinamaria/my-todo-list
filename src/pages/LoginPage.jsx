@@ -5,7 +5,7 @@
  * Redirects to intended destination after successful login or to /todos by default.
  */
 import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router';
 import { useAuth } from '../contexts/AuthContext.jsx';
 
 /**

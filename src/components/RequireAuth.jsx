@@ -4,7 +4,7 @@
  * Redirects unauthenticated users to the login page and preserves destination state.
  */
 import { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 import { useAuth } from '../contexts/AuthContext.jsx';
 
 /**

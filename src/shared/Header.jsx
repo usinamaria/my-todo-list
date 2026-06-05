@@ -3,7 +3,7 @@
  * Displays the application header with the main title and logout button.
  * Shared component used across multiple features.
  */
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import Navigation from './Navigation.jsx';
 

@@ -3,7 +3,7 @@
  * Displays a 404 error page for unmatched routes.
  * Provides helpful navigation links back to main parts of the app.
  */
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 /**
  * NotFoundPage - 404 error page

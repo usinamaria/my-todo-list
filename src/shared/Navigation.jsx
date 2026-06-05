@@ -3,7 +3,7 @@
  * Provides navigation links throughout the application.
  * Uses NavLink to apply active link styling automatically.
  */
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 import { useAuth } from '../contexts/AuthContext.jsx';
 
 function navLinkStyle({ isActive }) {

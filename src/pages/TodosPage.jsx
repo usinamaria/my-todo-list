@@ -5,7 +5,7 @@
  * Uses useAuth hook to access authentication token from context.
  */
 import { useReducer, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import useDebounce from '../utils/useDebounce.js';
 import TodoForm from '../features/Todos/TodoForm.jsx';
 import TodoList from '../features/Todos/TodoList/TodoList.jsx';
