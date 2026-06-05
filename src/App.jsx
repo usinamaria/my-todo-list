@@ -4,25 +4,55 @@
  * Serves as the entry point for the entire application.
  */
 import './App.css';
-import { useAuth } from './contexts/AuthContext.jsx';
+import { Routes, Route } from 'react-router-dom';
 import Header from './shared/Header.jsx';
-import TodosPage from './features/Todos/TodosPage.jsx';
-import Logon from './features/Logon.jsx';
+import HomePage from './pages/HomePage.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import TodosPage from './pages/TodosPage.jsx';
+import AboutPage from './pages/AboutPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
+import RequireAuth from './components/RequireAuth.jsx';
 
 /**
  * App - Root component for the application
- * Renders Header component and conditionally displays
- * either the Logon page or TodosPage based on authentication status.
- * Uses useAuth hook to access authentication context.
- * @returns {JSX.Element} The main application layout
+ * Renders Header component and defines routes for all pages:
+ * - Public routes: /, /about, /login
+ * - Protected routes: /todos, /profile (require authentication)
+ * - Catch-all route: * (404 handling)
+ * @returns {JSX.Element} The main application layout with routes
  */
 function App() {
-  const { isAuthenticated } = useAuth();
-
   return (
     <>
       <Header />
-      {isAuthenticated ? <TodosPage /> : <Logon />}
+      <Routes>
+        {/* Public routes */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/about" element={<AboutPage />} />
+
+        {/* Protected routes */}
+        <Route
+          path="/todos"
+          element={
+            <RequireAuth>
+              <TodosPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <RequireAuth>
+              <ProfilePage />
+            </RequireAuth>
+          }
+        />
+
+        {/* Catch-all route for 404 */}
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </>
   );
 }

@@ -27,9 +27,12 @@ export function useAuth() {
  * @param {ReactNode} props.children - Child components to wrap
  * @returns {JSX.Element} Context provider wrapping children
  */
+const STORAGE_EMAIL = 'todo-app-email';
+const STORAGE_TOKEN = 'todo-app-token';
+
 export function AuthProvider({ children }) {
-  const [email, setEmail] = useState('');
-  const [token, setToken] = useState('');
+  const [email, setEmail] = useState(() => localStorage.getItem(STORAGE_EMAIL) || '');
+  const [token, setToken] = useState(() => localStorage.getItem(STORAGE_TOKEN) || '');
 
   const login = async (userEmail, password) => {
     try {
@@ -46,6 +49,8 @@ export function AuthProvider({ children }) {
       if (res.status === 200 && data.name && data.csrfToken) {
         setEmail(data.name);
         setToken(data.csrfToken);
+        localStorage.setItem(STORAGE_EMAIL, data.name);
+        localStorage.setItem(STORAGE_TOKEN, data.csrfToken);
         return { success: true };
       } else {
         return {
@@ -77,10 +82,14 @@ export function AuthProvider({ children }) {
 
       setEmail('');
       setToken('');
+      localStorage.removeItem(STORAGE_EMAIL);
+      localStorage.removeItem(STORAGE_TOKEN);
       return { success: true };
     } catch (error) {
       setEmail('');
       setToken('');
+      localStorage.removeItem(STORAGE_EMAIL);
+      localStorage.removeItem(STORAGE_TOKEN);
       return {
         success: false,
         error: `Logout error: ${error.message}`,
@@ -90,6 +99,7 @@ export function AuthProvider({ children }) {
 
   const value = {
     email,
+    userName: email,
     token,
     isAuthenticated: !!token,
     login,
