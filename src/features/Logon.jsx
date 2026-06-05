@@ -1,19 +1,18 @@
 /**
  * Logon Component
  * Handles user authentication with pessimistic UI updates.
- * Waits for server confirmation before updating state (unlike optimistic updates).
+ * Uses AuthContext to manage authentication state.
  */
 import { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext.jsx';
 
 /**
  * Logon - Authentication form component
  * @component
- * @param {Object} props - Component props
- * @param {Function} props.onSetEmail - Callback to set authenticated user email
- * @param {Function} props.onSetToken - Callback to set CSRF token
  * @returns {JSX.Element} Login form with email and password inputs
  */
-function Logon({ onSetEmail, onSetToken }) {
+function Logon() {
+  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState('');
@@ -23,23 +22,12 @@ function Logon({ onSetEmail, onSetToken }) {
     try {
       event.preventDefault();
       setIsLoggingOn(true);
+      setAuthError('');
 
-      const response = await fetch('/api/users/logon', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        credentials: 'include',
-        body: JSON.stringify({ email, password })
-      });
+      const result = await login(email, password);
 
-      if (response.ok) {
-        const data = await response.json();
-        onSetEmail(data.name);
-        onSetToken(data.csrfToken);
-        setAuthError('');
-      } else {
-        setAuthError('Login failed. Please check your credentials.');
+      if (!result.success) {
+        setAuthError(result.error);
       }
     } catch (error) {
       setAuthError('An error occurred during login. Please try again.');
