@@ -14,18 +14,32 @@ function StatusFilter() {
     setSearchParams(searchParams);
   };
 
+  const options = [
+    { value: 'all', label: 'All' },
+    { value: 'active', label: 'Active' },
+    { value: 'completed', label: 'Completed' },
+  ];
+
   return (
-    <div>
-      <label htmlFor='statusFilter'>Show:</label>
-      <select
-        id='statusFilter'
-        value={currentStatus}
-        onChange={(e) => handleStatusChange(e.target.value)}
-      >
-        <option value='all'>All Todos</option>
-        <option value='active'>Active Todos</option>
-        <option value='completed'>Completed Todos</option>
-      </select>
+    <div role="group" aria-label="Filter todos by status" className="inline-flex flex-wrap gap-1 rounded-md border border-slate-300 bg-white p-1 shadow-sm">
+      {options.map(({ value, label }) => {
+        const isActive = currentStatus === value;
+        return (
+          <button
+            key={value}
+            type="button"
+            aria-pressed={isActive}
+            onClick={() => handleStatusChange(value)}
+            className={`rounded px-3 py-1.5 text-sm font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-1 ${
+              isActive
+                ? 'bg-primary-600 text-white shadow-sm'
+                : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+            }`}
+          >
+            {label}
+          </button>
+        );
+      })}
     </div>
   );
 }

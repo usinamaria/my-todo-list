@@ -22,17 +22,25 @@ function Header() {
   };
 
   return (
-    <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
-        <h1>Todo List</h1>
-        <Navigation />
-      </div>
-      {isAuthenticated && (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <span>Welcome, {email}</span>
-          <button onClick={handleLogout}>Log Off</button>
+    <header className="sticky top-0 z-10 border-b border-slate-200 bg-white/80 backdrop-blur">
+      <div className="mx-auto flex w-full max-w-4xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-8">
+          <h1 className="text-xl font-bold tracking-tight text-primary-700 sm:text-2xl">
+            Todo List
+          </h1>
+          <Navigation />
         </div>
-      )}
+        {isAuthenticated && (
+          <div className="flex items-center justify-between gap-4 sm:justify-end">
+            <span className="text-sm text-slate-600">
+              Welcome, <span className="font-medium text-slate-800">{email}</span>
+            </span>
+            <button onClick={handleLogout} className="btn-secondary btn-sm">
+              Log Off
+            </button>
+          </div>
+        )}
+      </div>
     </header>
   );
 }

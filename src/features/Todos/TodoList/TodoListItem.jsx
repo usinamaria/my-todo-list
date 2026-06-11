@@ -4,6 +4,7 @@
  * Supports inline editing with Edit/Cancel buttons and completion checkbox.
  */
 import TextInputWithLabel from '../../../shared/TextInputWithLabel';
+import Checkbox from '../../../shared/Checkbox';
 import { useEditableTitle } from '../../../hooks/useEditableTitle';
 
 /**
@@ -34,31 +35,40 @@ function TodoListItem({todo, onCompleteTodo, onUpdateTodo}) {
   };
 
 return (
-  <li>
+  <li className="px-4 py-3">
     {isEditing ? (
-      <form onSubmit={handleUpdate}>
-        <TextInputWithLabel
-          value={workingTitle}
-          onChange={handleEdit}
-        />
-        <button type="button" onClick={handleUpdate} disabled={!workingTitle.trim()}>
-          Update
-        </button>
-        <button type="button" onClick={handleCancel}>
-          Cancel
-        </button>
+      <form onSubmit={handleUpdate} className="flex flex-col gap-3 sm:flex-row sm:items-end">
+        <div className="flex-1">
+          <TextInputWithLabel
+            value={workingTitle}
+            onChange={handleEdit}
+          />
+        </div>
+        <div className="flex gap-2">
+          <button type="button" onClick={handleUpdate} disabled={!workingTitle.trim()} className="btn-primary btn-sm">
+            Update
+          </button>
+          <button type="button" onClick={handleCancel} className="btn-secondary btn-sm">
+            Cancel
+          </button>
+        </div>
       </form>
     ) : (
-      <>
-        <input
-          type="checkbox"
+      <div className="flex items-center gap-3">
+        <Checkbox
           checked={todo.isCompleted}
           onChange={() => onCompleteTodo(todo.id)}
+          ariaLabel={`Mark "${todo.title}" as ${todo.isCompleted ? 'active' : 'completed'}`}
         />
-        <span onClick={() => startEditing()}>
+        <span
+          onClick={() => startEditing()}
+          className={`flex-1 cursor-pointer wrap-break-word transition-colors ${
+            todo.isCompleted ? 'text-slate-400 line-through' : 'text-slate-900 hover:text-primary-700'
+          }`}
+        >
           {todo.title}
         </span>
-      </>
+      </div>
     )}
   </li>
 )

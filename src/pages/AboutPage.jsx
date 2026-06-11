@@ -11,37 +11,42 @@
  */
 function AboutPage() {
   return (
-    <div style={{ maxWidth: '800px', margin: '2rem auto', padding: '0 1rem' }}>
+    <div className="mx-auto flex max-w-3xl flex-col gap-6">
       <h1>About My Todo List</h1>
-      
-      <section style={{ marginTop: '2rem' }}>
-        <h2>Features</h2>
-        <ul>
-          <li>Create, read, update, and delete todos</li>
-          <li>Mark todos as complete or incomplete</li>
-          <li>Filter todos by search term</li>
-          <li>Sort todos by creation date or title</li>
-          <li>User authentication and authorization</li>
-          <li>Persistent storage with backend API</li>
-          <li>Optimistic UI updates for better user experience</li>
-          <li>Real-time todo list management</li>
+
+      <section className="card p-4 sm:p-6">
+        <h2 className="mb-3">Features</h2>
+        <ul className="list-disc space-y-1.5 pl-5 text-sm text-slate-700">
+          <li>Add new todos, with input validation and sanitization</li>
+          <li>Edit existing todo titles inline</li>
+          <li>Mark todos as complete</li>
+          <li>Filter todos by status: All, Active, or Completed</li>
+          <li>Search todos by title, with debounced input for fewer requests</li>
+          <li>Sort todos by creation date or title, ascending or descending</li>
+          <li>View todo statistics and completion rate on the Profile page</li>
+          <li>User authentication with protected Todos and Profile routes</li>
+          <li>Persistent storage via a REST API backend</li>
+          <li>Optimistic UI updates with automatic rollback if a request fails</li>
         </ul>
       </section>
 
-      <section style={{ marginTop: '2rem' }}>
-        <h2>Technologies Used</h2>
-        <ul>
-          <li><strong>React</strong> - JavaScript library for building user interfaces</li>
-          <li><strong>React Router</strong> - Client-side routing for single-page applications</li>
-          <li><strong>Vite</strong> - Fast and modern build tool for web applications</li>
-          <li><strong>Context API</strong> - State management for authentication</li>
-          <li><strong>Hooks</strong> - useReducer, useEffect, useState, useContext for component logic</li>
+      <section className="card p-4 sm:p-6">
+        <h2 className="mb-3">Technologies Used</h2>
+        <ul className="list-disc space-y-1.5 pl-5 text-sm text-slate-700">
+          <li><strong className="font-semibold text-slate-900">React</strong> - JavaScript library for building user interfaces</li>
+          <li><strong className="font-semibold text-slate-900">React Router</strong> - Client-side routing for single-page applications</li>
+          <li><strong className="font-semibold text-slate-900">Vite</strong> - Fast and modern build tool for web applications</li>
+          <li><strong className="font-semibold text-slate-900">Tailwind CSS</strong> - Utility-first styling and design system</li>
+          <li><strong className="font-semibold text-slate-900">Context API</strong> - State management for authentication</li>
+          <li><strong className="font-semibold text-slate-900">Hooks</strong> - useReducer, useEffect, useState, useId, and custom hooks for component logic</li>
+          <li><strong className="font-semibold text-slate-900">Zod &amp; DOMPurify</strong> - Input validation and sanitization</li>
+          <li><strong className="font-semibold text-slate-900">Express</strong> - Backend REST API with Helmet and rate limiting</li>
         </ul>
       </section>
 
-      <section style={{ marginTop: '2rem' }}>
-        <h2>Architecture</h2>
-        <p>
+      <section className="card p-4 sm:p-6">
+        <h2 className="mb-3">Architecture</h2>
+        <p className="text-sm leading-relaxed text-slate-700">
           This application follows modern React patterns with component-based architecture,
           context-based state management for authentication, and reducer patterns for complex
           todo list state management. Routes are protected and redirect unauthenticated users
