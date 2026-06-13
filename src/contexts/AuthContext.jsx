@@ -1,32 +1,15 @@
-/**
- * AuthContext
- * Manages authentication state and functions globally.
- * Eliminates prop drilling for email, token, and auth functions.
- */
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState } from 'react';
+import { getFetchErrorMessage } from '../utils/errorMessages.js';
 
 const AuthContext = createContext();
 
-/**
- * Custom hook to access authentication context.
- * Must be used within an AuthProvider.
- * @returns {Object} Authentication state and functions
- * @throws {Error} If not used within an AuthProvider
- */
 export function useAuth() {
   const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
+  if (!context) throw new Error('useAuth must be used within an AuthProvider');
   return context;
 }
 
-/**
- * AuthProvider - Wraps application and provides authentication context
- * @param {Object} props - Component props
- * @param {ReactNode} props.children - Child components to wrap
- * @returns {JSX.Element} Context provider wrapping children
- */
 const STORAGE_EMAIL = 'todo-app-email';
 const STORAGE_TOKEN = 'todo-app-token';
 
@@ -42,44 +25,27 @@ export function AuthProvider({ children }) {
         body: JSON.stringify({ email: userEmail, password }),
         credentials: 'include',
       };
-
       const res = await fetch('/api/users/logon', options);
       const data = await res.json();
-
       if (res.status === 200 && data.name && data.csrfToken) {
         setEmail(data.name);
         setToken(data.csrfToken);
         localStorage.setItem(STORAGE_EMAIL, data.name);
         localStorage.setItem(STORAGE_TOKEN, data.csrfToken);
         return { success: true };
-      } else {
-        return {
-          success: false,
-          error: `Authentication failed: ${data?.message || 'Unknown error'}`,
-        };
       }
+      return { success: false, error: data?.message || 'Incorrect email or password. Please try again.' };
     } catch (error) {
-      return {
-        success: false,
-        error: `Network error during login: ${error.message}`,
-      };
+      return { success: false, error: getFetchErrorMessage(error, 'Something went wrong while logging in. Please try again.') };
     }
   };
 
   const logout = async () => {
     try {
       if (token) {
-        const options = {
-          method: 'POST',
-          headers: {
-            'X-CSRF-TOKEN': token,
-          },
-          credentials: 'include',
-        };
-
+        const options = { method: 'POST', headers: { 'X-CSRF-TOKEN': token }, credentials: 'include' };
         await fetch('/api/users/logoff', options);
       }
-
       setEmail('');
       setToken('');
       localStorage.removeItem(STORAGE_EMAIL);
@@ -90,25 +56,10 @@ export function AuthProvider({ children }) {
       setToken('');
       localStorage.removeItem(STORAGE_EMAIL);
       localStorage.removeItem(STORAGE_TOKEN);
-      return {
-        success: false,
-        error: `Logout error: ${error.message}`,
-      };
+      return { success: false, error: getFetchErrorMessage(error, "We couldn't reach the server, but you've been signed out.") };
     }
   };
 
-  const value = {
-    email,
-    userName: email,
-    token,
-    isAuthenticated: !!token,
-    login,
-    logout,
-  };
-
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  const value = { email, userName: email, token, isAuthenticated: !!token, login, logout };
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

@@ -5,7 +5,7 @@
  * Redirects to intended destination after successful login or to /todos by default.
  */
 import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router';
+import { useNavigate, useLocation} from 'react-router';
 import { useAuth } from '../contexts/AuthContext.jsx';
 
 /**
@@ -53,41 +53,54 @@ function LoginPage() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {authError && (
-        <p style={{ color: 'red', marginBottom: '1rem' }}>
-          {authError}
-        </p>
-      )}
-      
-      <div style={{ marginBottom: '1rem' }}>
-        <label htmlFor="email">Email:</label>
-        <input
-          id="email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter your email"
-          required
-        />
-      </div>
+    <div className="mx-auto max-w-md">
+      <div className="card p-6 sm:p-8">
+        <h1 className="mb-6 text-center">Log On</h1>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          {authError && (
+            <div className="alert-error">
+              <p>{authError}</p>
+            </div>
+          )}
 
-      <div style={{ marginBottom: '1rem' }}>
-        <label htmlFor="password">Password:</label>
-        <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter your password"
-          required
-        />
-      </div>
+          <div>
+            <label htmlFor="email" className="field-label">Email</label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              required
+              className="input-field"
+            />
+          </div>
 
-      <button type="submit" disabled={isLoggingOn}>
-        {isLoggingOn ? 'Logging in...' : 'Log On'}
-      </button>
-    </form>
+          <div>
+            <label htmlFor="password" className="field-label">Password</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              required
+              className="input-field"
+            />
+          </div>
+
+          <div className="flex items-center justify-between gap-4 pt-2">
+            <button
+              type="submit"
+              disabled={isLoggingOn}
+              className="btn-primary"
+            >
+              {isLoggingOn ? 'Logging in...' : 'Log On'}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 }
 

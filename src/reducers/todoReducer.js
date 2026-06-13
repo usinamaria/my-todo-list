@@ -22,6 +22,7 @@ export const TODO_ACTIONS = {
 
   SET_SORT: 'SET_SORT',
   SET_FILTER: 'SET_FILTER',
+  SET_PAGE: 'SET_PAGE',
   CLEAR_ERROR: 'CLEAR_ERROR',
   CLEAR_FILTER_ERROR: 'CLEAR_FILTER_ERROR',
   RESET_FILTERS: 'RESET_FILTERS',
@@ -36,6 +37,11 @@ export const initialTodoState = {
   sortDirection: 'asc',
   filterTerm: '',
   dataVersion: 0,
+  page: 1,
+  totalPages: 1,
+  hasNext: false,
+  hasPrev: false,
+  total: 0,
 };
 
 export function todoReducer(state, action) {
@@ -49,24 +55,33 @@ export function todoReducer(state, action) {
       };
 
     case TODO_ACTIONS.FETCH_SUCCESS:
-      return {
-        ...state,
-        todoList: action.payload.tasks ?? [],
-        isTodoListLoading: false,
-        error: '',
-        filterError: '',
-      };
+      {
+        const pagination = action.payload.pagination ?? {};
+        return {
+          ...state,
+          todoList: action.payload.tasks ?? [],
+          isTodoListLoading: false,
+          error: '',
+          filterError: '',
+          page: pagination.page ?? 1,
+          totalPages: pagination.pages ?? 1,
+          hasNext: pagination.hasNext ?? false,
+          hasPrev: pagination.hasPrev ?? false,
+          total: pagination.total ?? action.payload.tasks?.length ?? 0,
+        };
+      }
 
     case TODO_ACTIONS.FETCH_ERROR:
-      const isFilterError =
-        action.payload.isFilterError ?? false;
-      return {
-        ...state,
-        isTodoListLoading: false,
-        ...(isFilterError
-          ? { filterError: action.payload.message }
-          : { error: action.payload.message }),
-      };
+      {
+        const isFilterError = action.payload.isFilterError ?? false;
+        return {
+          ...state,
+          isTodoListLoading: false,
+          ...(isFilterError
+            ? { filterError: action.payload.message }
+            : { error: action.payload.message }),
+        };
+      }
 
     case TODO_ACTIONS.ADD_TODO_START:
       return {
@@ -156,12 +171,20 @@ export function todoReducer(state, action) {
         ...state,
         sortBy: action.payload.sortBy,
         sortDirection: action.payload.sortDirection,
+        page: 1,
       };
 
     case TODO_ACTIONS.SET_FILTER:
       return {
         ...state,
         filterTerm: action.payload,
+        page: 1,
+      };
+
+    case TODO_ACTIONS.SET_PAGE:
+      return {
+        ...state,
+        page: action.payload,
       };
 
     case TODO_ACTIONS.CLEAR_ERROR:
@@ -183,6 +206,7 @@ export function todoReducer(state, action) {
         sortBy: 'createdDate',
         sortDirection: 'asc',
         filterError: '',
+        page: 1,
       };
 
     default:

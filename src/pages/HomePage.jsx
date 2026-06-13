@@ -7,6 +7,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useAuth } from '../contexts/AuthContext.jsx';
+import LoadingSpinner from '../shared/LoadingSpinner.jsx';
 
 /**
  * HomePage - Root page component that conditionally redirects
@@ -25,8 +26,9 @@ function HomePage() {
   }, [isAuthenticated, navigate]);
 
   return (
-    <div>
-        <p>Redirecting...</p>
+    <div className="flex flex-col items-center justify-center gap-3 py-16 text-sm text-slate-500">
+      <LoadingSpinner size="h-5 w-5" />
+      <p>Redirecting...</p>
     </div>
   );
 }
