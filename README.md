@@ -4,7 +4,7 @@ A responsive, full-featured todo list app built with React 19. It supports user 
 
 ## Live Demo
 
-Not yet deployed — coming soon. (Add your Netlify/Vercel URL here once deployed.)
+[https://my-todo-list-tau-eight.vercel.app](https://my-todo-list-tau-eight.vercel.app)
 
 ## Features
 
@@ -19,14 +19,15 @@ Not yet deployed — coming soon. (Add your Netlify/Vercel URL here once deploye
 - User authentication with protected `Todos` and `Profile` routes
 - Optimistic UI updates with automatic rollback if a request fails
 - Friendly 404 page with quick links back into the app
+- Light and dark mode toggle, with preference persisted across sessions and OS preference detected by default
 
 ## Technologies Used
 
 - **React 19** — UI library
 - **React Router 7** — client-side routing and route protection
 - **Vite** — dev server and build tool
-- **Tailwind CSS v4** — utility-first styling, with shared component classes (`.btn-primary`, `.input-field`, `.card`, `.alert-error`, etc.) and custom design tokens defined in `src/index.css`
-- **Context API + `useReducer`** — authentication and todo state management
+- **Tailwind CSS v4** — utility-first styling, with shared component classes (`.btn-primary`, `.input-field`, `.card`, `.alert-error`, etc.), custom design tokens, and class-based dark mode defined in `src/index.css`
+- **Context API + `useReducer`** — authentication, theme (light/dark mode), and todo state management
 - **Zod & DOMPurify** — input validation and sanitization
 - **Express, Helmet, express-rate-limit** — local mock API server (`server/`)
 - **Vitest + React Testing Library** — unit and component tests
@@ -38,13 +39,13 @@ Not yet deployed — coming soon. (Add your Netlify/Vercel URL here once deploye
 
 | Desktop | Mobile |
 | --- | --- |
-| ![Login page desktop view](public/screenshots/login-desktop.png) | ![Login page mobile view](public/screenshots/login-mobile.png) |
+| ![Login page desktop view](public/screenshots/login-desktop.png) | ![Login page mobile view](public/screenshots/Screenshot_20260613_171819_Chrome.jpg) |
 
 ### About Page
 
 | Desktop | Mobile |
 | --- | --- |
-| ![About page desktop view](public/screenshots/about-desktop.png) | ![About page mobile view](public/screenshots/about-mobile.png) |
+| ![About page desktop view](public/screenshots/about-desktop.png) | ![About page mobile view](public/screenshots/Screenshot_20260613_171819_Chrome.jpg) |
 
 ### 404 Not Found Page
 
@@ -111,7 +112,8 @@ my-todo-list/
 │   ├── components/
 │   │   └── RequireAuth.jsx   # Route guard for protected pages
 │   ├── contexts/
-│   │   └── AuthContext.jsx   # Authentication state (login/logout, token, CSRF)
+│   │   ├── AuthContext.jsx   # Authentication state (login/logout, token, CSRF)
+│   │   └── ThemeContext.jsx  # Light/dark mode state, persisted to localStorage
 │   ├── features/
 │   │   └── Todos/
 │   │       ├── TodoForm.jsx        # Form for adding new todos
@@ -130,7 +132,7 @@ my-todo-list/
 │   ├── reducers/
 │   │   └── todoReducer.js     # Centralized state management for the todos page
 │   ├── shared/                # Reusable UI building blocks
-│   │   ├── Header.jsx, Navigation.jsx
+│   │   ├── Header.jsx, Navigation.jsx, ThemeToggle.jsx
 │   │   ├── Checkbox.jsx, TextInputWithLabel.jsx, LoadingSpinner.jsx
 │   │   └── FilterInput.jsx, SortBy.jsx, StatusFilter.jsx
 │   ├── utils/
@@ -153,13 +155,13 @@ my-todo-list/
 - **Mobile-first, responsive layouts**: Pages use Tailwind's responsive variants (`sm:`, `lg:`) so forms, navigation, and lists adapt cleanly from small phone screens up to desktop widths.
 - **Component extraction**: Repeated UI fragments (such as the loading spinner used across the Home, Todos, and Profile pages) are extracted into small shared components (`src/shared/`) to keep pages focused and reduce duplication.
 - **Reducer-based state**: Todo list state (loading, errors, sorting, filtering, pagination) is centralized in `src/reducers/todoReducer.js` so UI components stay simple and state transitions stay predictable and testable.
+- **Class-based dark mode**: Dark mode is toggled via a `.dark` class on `<html>` using Tailwind v4's `@custom-variant`, with the preference stored in `localStorage` and an inline script in `index.html` that applies the class before first paint to avoid a flash of the wrong theme. If no preference is stored, the app falls back to the OS-level `prefers-color-scheme`.
 
 ## Future Improvements
 
 - Add due dates, priorities, and tags/categories for todos
 - Add drag-and-drop reordering of todos
 - Persist the status filter and sort preferences per user
-- Add dark mode support
 - Add end-to-end tests with Playwright
 - Replace the mock Express API with a production database-backed service
 - Add user registration and password reset flows in the UI

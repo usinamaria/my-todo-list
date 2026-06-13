@@ -159,7 +159,7 @@ function TodosPage() {
     <div className="flex flex-col gap-6">
       <div>
         <h1>My Todos</h1>
-        <p className="mt-1 text-sm text-slate-500">Keep track of what needs to get done.</p>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Keep track of what needs to get done.</p>
       </div>
 
       {error && (
@@ -201,7 +201,7 @@ function TodosPage() {
       </div>
 
       {isTodoListLoading ? (
-        <div className="card flex items-center justify-center gap-3 p-6 text-sm text-slate-500">
+        <div className="card flex items-center justify-center gap-3 p-6 text-sm text-slate-500 dark:text-slate-400">
           <LoadingSpinner />
           Loading todos...
         </div>

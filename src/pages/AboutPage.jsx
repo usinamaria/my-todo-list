@@ -16,7 +16,7 @@ function AboutPage() {
 
       <section className="card p-4 sm:p-6">
         <h2 className="mb-3">Features</h2>
-        <ul className="list-disc space-y-1.5 pl-5 text-sm text-slate-700">
+        <ul className="list-disc space-y-1.5 pl-5 text-sm text-slate-700 dark:text-slate-300">
           <li>Add new todos, with input validation and sanitization</li>
           <li>Edit existing todo titles inline</li>
           <li>Mark todos as complete</li>
@@ -32,21 +32,21 @@ function AboutPage() {
 
       <section className="card p-4 sm:p-6">
         <h2 className="mb-3">Technologies Used</h2>
-        <ul className="list-disc space-y-1.5 pl-5 text-sm text-slate-700">
-          <li><strong className="font-semibold text-slate-900">React</strong> - JavaScript library for building user interfaces</li>
-          <li><strong className="font-semibold text-slate-900">React Router</strong> - Client-side routing for single-page applications</li>
-          <li><strong className="font-semibold text-slate-900">Vite</strong> - Fast and modern build tool for web applications</li>
-          <li><strong className="font-semibold text-slate-900">Tailwind CSS</strong> - Utility-first styling and design system</li>
-          <li><strong className="font-semibold text-slate-900">Context API</strong> - State management for authentication</li>
-          <li><strong className="font-semibold text-slate-900">Hooks</strong> - useReducer, useEffect, useState, useId, and custom hooks for component logic</li>
-          <li><strong className="font-semibold text-slate-900">Zod &amp; DOMPurify</strong> - Input validation and sanitization</li>
-          <li><strong className="font-semibold text-slate-900">Express</strong> - Backend REST API with Helmet and rate limiting</li>
+        <ul className="list-disc space-y-1.5 pl-5 text-sm text-slate-700 dark:text-slate-300">
+          <li><strong className="font-semibold text-slate-900 dark:text-slate-100">React</strong> - JavaScript library for building user interfaces</li>
+          <li><strong className="font-semibold text-slate-900 dark:text-slate-100">React Router</strong> - Client-side routing for single-page applications</li>
+          <li><strong className="font-semibold text-slate-900 dark:text-slate-100">Vite</strong> - Fast and modern build tool for web applications</li>
+          <li><strong className="font-semibold text-slate-900 dark:text-slate-100">Tailwind CSS</strong> - Utility-first styling and design system</li>
+          <li><strong className="font-semibold text-slate-900 dark:text-slate-100">Context API</strong> - State management for authentication</li>
+          <li><strong className="font-semibold text-slate-900 dark:text-slate-100">Hooks</strong> - useReducer, useEffect, useState, useId, and custom hooks for component logic</li>
+          <li><strong className="font-semibold text-slate-900 dark:text-slate-100">Zod &amp; DOMPurify</strong> - Input validation and sanitization</li>
+          <li><strong className="font-semibold text-slate-900 dark:text-slate-100">Express</strong> - Backend REST API with Helmet and rate limiting</li>
         </ul>
       </section>
 
       <section className="card p-4 sm:p-6">
         <h2 className="mb-3">Architecture</h2>
-        <p className="text-sm leading-relaxed text-slate-700">
+        <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
           This application follows modern React patterns with component-based architecture,
           context-based state management for authentication, and reducer patterns for complex
           todo list state management. Routes are protected and redirect unauthenticated users

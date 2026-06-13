@@ -61,13 +61,13 @@ function ProfilePage() {
         <h2 className="mb-4">Profile Information</h2>
         <dl className="flex flex-col gap-2 text-sm">
           <div className="flex items-center gap-2">
-            <dt className="font-semibold text-slate-700">Username:</dt>
-            <dd className="text-slate-600">{userName || 'Not available'}</dd>
+            <dt className="font-semibold text-slate-700 dark:text-slate-300">Username:</dt>
+            <dd className="text-slate-600 dark:text-slate-400">{userName || 'Not available'}</dd>
           </div>
           <div className="flex items-center gap-2">
-            <dt className="font-semibold text-slate-700">Status:</dt>
+            <dt className="font-semibold text-slate-700 dark:text-slate-300">Status:</dt>
             <dd>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-accent-100 px-2.5 py-0.5 text-xs font-medium text-accent-800">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-accent-100 px-2.5 py-0.5 text-xs font-medium text-accent-800 dark:bg-accent-950 dark:text-accent-300">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent-500" aria-hidden="true" />
                 Authenticated
               </span>
@@ -79,7 +79,7 @@ function ProfilePage() {
       <section className="card p-4 sm:p-6">
         <h2 className="mb-4">Todo Statistics</h2>
         {isLoading ? (
-          <div className="flex items-center gap-3 text-sm text-slate-500">
+          <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
             <LoadingSpinner />
             Loading statistics...
           </div>
@@ -90,22 +90,22 @@ function ProfilePage() {
         ) : (
           <div className="flex flex-col gap-3">
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-              <div className="rounded-md bg-primary-50 p-3 text-center">
-                <p className="text-2xl font-bold text-primary-700">{stats.total}</p>
-                <p className="text-xs font-medium text-primary-700/80">Total</p>
+              <div className="rounded-md bg-primary-50 p-3 text-center dark:bg-primary-950">
+                <p className="text-2xl font-bold text-primary-700 dark:text-primary-300">{stats.total}</p>
+                <p className="text-xs font-medium text-primary-700/80 dark:text-primary-300/80">Total</p>
               </div>
-              <div className="rounded-md bg-accent-50 p-3 text-center">
-                <p className="text-2xl font-bold text-accent-700">{stats.completed}</p>
-                <p className="text-xs font-medium text-accent-700/80">Completed</p>
+              <div className="rounded-md bg-accent-50 p-3 text-center dark:bg-accent-950">
+                <p className="text-2xl font-bold text-accent-700 dark:text-accent-300">{stats.completed}</p>
+                <p className="text-xs font-medium text-accent-700/80 dark:text-accent-300/80">Completed</p>
               </div>
-              <div className="rounded-md bg-amber-50 p-3 text-center">
-                <p className="text-2xl font-bold text-amber-700">{stats.active}</p>
-                <p className="text-xs font-medium text-amber-700/80">Active</p>
+              <div className="rounded-md bg-amber-50 p-3 text-center dark:bg-amber-950">
+                <p className="text-2xl font-bold text-amber-700 dark:text-amber-300">{stats.active}</p>
+                <p className="text-xs font-medium text-amber-700/80 dark:text-amber-300/80">Active</p>
               </div>
             </div>
             {stats.total > 0 && (
-              <p className="text-sm text-slate-600">
-                <span className="font-semibold text-slate-800">Completion Rate:</span>{' '}
+              <p className="text-sm text-slate-600 dark:text-slate-400">
+                <span className="font-semibold text-slate-800 dark:text-slate-200">Completion Rate:</span>{' '}
                 {Math.round((stats.completed / stats.total) * 100)}%
               </p>
             )}

@@ -69,9 +69,9 @@ function TodoList({
   return (
     <div className="flex flex-col gap-3">
       {filteredTodoList.todos.length === 0 ? (
-        <p className="card p-6 text-center text-sm text-slate-500">{getEmptyMessage()}</p>
+        <p className="card p-6 text-center text-sm text-slate-500 dark:text-slate-400">{getEmptyMessage()}</p>
       ) : (
-        <ul className="card divide-y divide-slate-200">
+        <ul className="card divide-y divide-slate-200 dark:divide-slate-700">
           {filteredTodoList.todos.map((todo) => (
             <TodoListItem
               key={todo.id}
@@ -93,7 +93,7 @@ function TodoList({
           >
             <span aria-hidden="true">&larr;</span> Previous
           </button>
-          <span className="text-sm text-slate-500">
+          <span className="text-sm text-slate-500 dark:text-slate-400">
             Page {page} of {totalPages}
           </span>
           <button

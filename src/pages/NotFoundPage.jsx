@@ -13,9 +13,9 @@ import { Link } from 'react-router';
 function NotFoundPage() {
   return (
     <div className="mx-auto flex max-w-md flex-col items-center gap-4 py-12 text-center">
-      <h1 className="text-7xl font-extrabold text-primary-600">404</h1>
+      <h1 className="text-7xl font-extrabold text-primary-600 dark:text-primary-400">404</h1>
       <h2>Page Not Found</h2>
-      <p className="text-base text-slate-500">
+      <p className="text-base text-slate-500 dark:text-slate-400">
         Sorry, the page you're looking for doesn't exist or has been moved.
       </p>
 

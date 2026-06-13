@@ -13,7 +13,7 @@
 function LoadingSpinner({ size = 'h-4 w-4' }) {
   return (
     <span
-      className={`${size} animate-spin rounded-full border-2 border-slate-300 border-t-primary-600`}
+      className={`${size} animate-spin rounded-full border-2 border-slate-300 border-t-primary-600 dark:border-slate-600`}
       aria-hidden="true"
     />
   );
