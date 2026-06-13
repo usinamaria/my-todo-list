@@ -63,7 +63,7 @@ return (
         <span
           onClick={() => startEditing()}
           className={`flex-1 cursor-pointer wrap-break-word transition-colors ${
-            todo.isCompleted ? 'text-slate-400 line-through' : 'text-slate-900 hover:text-primary-700'
+            todo.isCompleted ? 'text-slate-400 line-through dark:text-slate-500' : 'text-slate-900 hover:text-primary-700 dark:text-slate-100 dark:hover:text-primary-400'
           }`}
         >
           {todo.title}

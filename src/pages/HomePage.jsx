@@ -26,7 +26,7 @@ function HomePage() {
   }, [isAuthenticated, navigate]);
 
   return (
-    <div className="flex flex-col items-center justify-center gap-3 py-16 text-sm text-slate-500">
+    <div className="flex flex-col items-center justify-center gap-3 py-16 text-sm text-slate-500 dark:text-slate-400">
       <LoadingSpinner size="h-5 w-5" />
       <p>Redirecting...</p>
     </div>

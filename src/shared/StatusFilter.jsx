@@ -21,7 +21,7 @@ function StatusFilter() {
   ];
 
   return (
-    <div role="group" aria-label="Filter todos by status" className="inline-flex flex-wrap gap-1 rounded-md border border-slate-300 bg-white p-1 shadow-sm">
+    <div role="group" aria-label="Filter todos by status" className="inline-flex flex-wrap gap-1 rounded-md border border-slate-300 bg-white p-1 shadow-sm dark:border-slate-600 dark:bg-slate-800">
       {options.map(({ value, label }) => {
         const isActive = currentStatus === value;
         return (
@@ -33,7 +33,7 @@ function StatusFilter() {
             className={`rounded px-3 py-1.5 text-sm font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-1 ${
               isActive
                 ? 'bg-primary-600 text-white shadow-sm'
-                : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-slate-100'
             }`}
           >
             {label}
